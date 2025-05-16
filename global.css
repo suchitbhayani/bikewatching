@@ -35,11 +35,15 @@ body {
     pointer-events: none;
 }
 
-svg circle {
-    fill-opacity: 60%;
-    stroke: white;
-    fill: steelblue;
-    pointer-events: auto;
+#map circle, .legend-item {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+    --color: color-mix(
+      in oklch,
+      var(--color-departures) calc(100% * var(--departure-ratio)),
+      var(--color-arrivals)
+    );
+    fill: var(--color);
 }
 
 header {
@@ -49,7 +53,6 @@ header {
     justify-content: space-between;
     width: 100%;
 }
-
 
 label {
     margin-left: auto;
@@ -64,4 +67,35 @@ em {
     color: #666;
     font-style: italic;
 } 
+
+.legend {
+    display: flex;
+    justify-content: space-between;
+    margin-block: 1em;
+    padding: 10px;
+    border-radius: 5px;
+    gap: 3em;
+}
+
+.legend-title {
+    color:gray;
+    font-size: 110%;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    position: relative; /* Needed for proper positioning of the pseudo-element */
+}
+
+.legend-item::before {
+    content: "";
+    display: block;
+    width: 20px; /* Width of the swatch */
+    height: 20px; /* Height of the swatch */
+    background: var(--color);
+    margin-right: 10px; /* Space between swatch and text */
+    border-radius: 50%; /* Makes the swatch circular */
+}
+
     
